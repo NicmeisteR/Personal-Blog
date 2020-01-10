@@ -1,0 +1,29 @@
+{
+  "name": "node-ts",
+  "version": "1.0.0",
+  "description": "Node TypeScript",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "start": "tsc && node ./build/index.js",
+    "build": "cd src && tsc && node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicmeisteR/Node-TS.git"
+  },
+  "keywords": [
+    "Node",
+    "TypeScript"
+  ],
+  "author": "Nicolaas Nel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicmeisteR/Node-TS/issues"
+  },
+  "homepage": "https://github.com/NicmeisteR/Node-TS#readme",
+  "dependencies": {
+    "typescript": "^3.7.4"
+  }
+}
