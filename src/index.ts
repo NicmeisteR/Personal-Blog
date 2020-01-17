@@ -1,5 +1,5 @@
 import express = require('express');
-// import { get, selector } from './functions/helpers';
+import { insert } from './functions/helpers';
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const bodyParser = require('body-parser');
@@ -18,21 +18,6 @@ const client = new MongoClient(url);
 let db: any;
 
 // Use connect method to connect to the Server
-
-const insertDocuments = function (db: any, gamertag: string, response:any, callback: any) {
-    // Get the documents collection
-    const collection = db.collection('documents');
-    // Insert some documents
-    collection.insertMany([
-        { a: 1, gamertag: gamertag }, { a: 2, gamertag: gamertag }, { a: 3, gamertag: gamertag  }
-    ], function (err: any, result: any) {
-        assert.equal(err, null);
-        assert.equal(3, result.result.n);
-        assert.equal(3, result.ops.length);
-        console.log("Inserted 3 documents into the collection");
-        callback(result);
-    });
-}
 
 // ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ 
 // ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗
@@ -60,7 +45,7 @@ function start() {
   
       let gamertag = request.body.gamertag;
 
-      insertDocuments(db, gamertag, response, function () {
+      insert(db, gamertag, response, function () {
         // client.close();
         try {
             response.end(JSON.stringify(gamertag + " Added"))
@@ -69,7 +54,27 @@ function start() {
             console.log(error);
         }
     });
+    })
+
+    app.get('/get', async (request, response) => {
+      response.writeHead(200, {
+        'Content-Type': 'text/json',
+        'Developer': 'Nicolaas Nel (NicmeisteR)',
+        'Support-Development': 'https://ko-fi.com/nicmeister',
+        'Twitter': 'https://twitter.com/FinalNecessity'
+      });
   
+      let gamertag = request.body.gamertag;
+
+      insert(db, gamertag, response, function () {
+        // client.close();
+        try {
+            response.end(JSON.stringify(gamertag + " retrieved"))
+          }
+        catch (error) {
+            console.log(error);
+        }
+    });
     })
     app.listen(process.env.PORT, () => console.log(`API now available on http://localhost:${process.env.PORT}`));
   }

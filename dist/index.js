@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-// import { get, selector } from './functions/helpers';
+var helpers_1 = require("./functions/helpers");
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var bodyParser = require('body-parser');
@@ -51,20 +51,6 @@ var dbName = process.env.DBNAME;
 var client = new MongoClient(url);
 var db;
 // Use connect method to connect to the Server
-var insertDocuments = function (db, gamertag, response, callback) {
-    // Get the documents collection
-    var collection = db.collection('documents');
-    // Insert some documents
-    collection.insertMany([
-        { a: 1, gamertag: gamertag }, { a: 2, gamertag: gamertag }, { a: 3, gamertag: gamertag }
-    ], function (err, result) {
-        assert.equal(err, null);
-        assert.equal(3, result.result.n);
-        assert.equal(3, result.ops.length);
-        console.log("Inserted 3 documents into the collection");
-        callback(result);
-    });
-};
 // ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ 
 // ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗
 // ███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝
@@ -90,10 +76,32 @@ function start() {
                 'Twitter': 'https://twitter.com/FinalNecessity'
             });
             gamertag = request.body.gamertag;
-            insertDocuments(db, gamertag, response, function () {
+            helpers_1.insert(db, gamertag, response, function () {
                 // client.close();
                 try {
                     response.end(JSON.stringify(gamertag + " Added"));
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            });
+            return [2 /*return*/];
+        });
+    }); });
+    app.get('/get', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+        var gamertag;
+        return __generator(this, function (_a) {
+            response.writeHead(200, {
+                'Content-Type': 'text/json',
+                'Developer': 'Nicolaas Nel (NicmeisteR)',
+                'Support-Development': 'https://ko-fi.com/nicmeister',
+                'Twitter': 'https://twitter.com/FinalNecessity'
+            });
+            gamertag = request.body.gamertag;
+            helpers_1.insert(db, gamertag, response, function () {
+                // client.close();
+                try {
+                    response.end(JSON.stringify(gamertag + " retrieved"));
                 }
                 catch (error) {
                     console.log(error);
