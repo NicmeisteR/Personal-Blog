@@ -1,11 +1,11 @@
 <style>
     table {
         width:100% !important;
-    }
+    };
     
     th {
         width:100% !important; 
-    }
+    };
 </style>
 
 # Node-TS-MongoDB
