@@ -1,10 +1,10 @@
 <style>
     table {
-        width:100% !important;
+        width:100%;
     };
     
     th {
-        width:100% !important; 
+        width:100%; 
     };
 </style>
 
