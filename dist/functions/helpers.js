@@ -82,3 +82,26 @@ function read(collection, gamertag) {
     });
 }
 exports.read = read;
+function remove(collection, gamertag) {
+    return __awaiter(this, void 0, void 0, function () {
+        var player, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, collection.deleteOne({ "gamertag": gamertag.toLowerCase(), "username": gamertag })];
+                case 1:
+                    player = _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    player = "Gamertag: " + gamertag + " doesn't exist.";
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/, new Promise(function (resolve, reject) {
+                        return resolve(player);
+                    })];
+            }
+        });
+    });
+}
+exports.remove = remove;

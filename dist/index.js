@@ -61,23 +61,25 @@ var collection;
 // Server                                             
 function start() {
     return __awaiter(this, void 0, void 0, function () {
+        var responseHead;
         var _this = this;
         return __generator(this, function (_a) {
             app.use(cors());
             // Configuring body parser middleware
             app.use(bodyParser.urlencoded({ extended: false }));
             app.use(bodyParser.json());
+            responseHead = {
+                'Content-Type': 'text/json',
+                'Developer': 'Nicolaas Nel (NicmeisteR)',
+                'Support-Development': 'https://ko-fi.com/nicmeister',
+                'Twitter': 'https://twitter.com/FinalNecessity'
+            };
             app.post('/post', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
                 var gamertag, player;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            response.writeHead(200, {
-                                'Content-Type': 'text/json',
-                                'Developer': 'Nicolaas Nel (NicmeisteR)',
-                                'Support-Development': 'https://ko-fi.com/nicmeister',
-                                'Twitter': 'https://twitter.com/FinalNecessity'
-                            });
+                            response.writeHead(200, responseHead);
                             gamertag = request.body.gamertag;
                             return [4 /*yield*/, helpers_1.insert(collection, gamertag)];
                         case 1:
@@ -92,14 +94,24 @@ function start() {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            response.writeHead(200, {
-                                'Content-Type': 'text/json',
-                                'Developer': 'Nicolaas Nel (NicmeisteR)',
-                                'Support-Development': 'https://ko-fi.com/nicmeister',
-                                'Twitter': 'https://twitter.com/FinalNecessity'
-                            });
+                            response.writeHead(200, responseHead);
                             gamertag = request.body.gamertag;
                             return [4 /*yield*/, helpers_1.read(collection, gamertag)];
+                        case 1:
+                            player = _a.sent();
+                            response.end(JSON.stringify(player));
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            app.delete('/delete', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+                var gamertag, player;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            response.writeHead(200, responseHead);
+                            gamertag = request.body.gamertag;
+                            return [4 /*yield*/, helpers_1.remove(collection, gamertag)];
                         case 1:
                             player = _a.sent();
                             response.end(JSON.stringify(player));

@@ -1,5 +1,5 @@
 import express = require('express');
-import { insert, read } from './functions/helpers';
+import { insert, read, remove } from './functions/helpers';
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const bodyParser = require('body-parser');
@@ -32,13 +32,15 @@ async function start() {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
+  const responseHead = {
+    'Content-Type': 'text/json',
+    'Developer': 'Nicolaas Nel (NicmeisteR)',
+    'Support-Development': 'https://ko-fi.com/nicmeister',
+    'Twitter': 'https://twitter.com/FinalNecessity'
+  };
+
   app.post('/post', async (request, response) => {
-    response.writeHead(200, {
-      'Content-Type': 'text/json',
-      'Developer': 'Nicolaas Nel (NicmeisteR)',
-      'Support-Development': 'https://ko-fi.com/nicmeister',
-      'Twitter': 'https://twitter.com/FinalNecessity'
-    });
+    response.writeHead(200, responseHead);
 
     let gamertag = request.body.gamertag;
 
@@ -47,16 +49,20 @@ async function start() {
   })
 
   app.get('/get', async (request, response) => {
-    response.writeHead(200, {
-      'Content-Type': 'text/json',
-      'Developer': 'Nicolaas Nel (NicmeisteR)',
-      'Support-Development': 'https://ko-fi.com/nicmeister',
-      'Twitter': 'https://twitter.com/FinalNecessity'
-    });
+    response.writeHead(200, responseHead);
 
     let gamertag = request.body.gamertag;
 
     let player = await read(collection, gamertag);
+    response.end(JSON.stringify(player))
+  });
+
+  app.delete('/delete', async (request, response) => {
+    response.writeHead(200, responseHead);
+
+    let gamertag = request.body.gamertag;
+
+    let player = await remove(collection, gamertag);
     response.end(JSON.stringify(player))
   });
 

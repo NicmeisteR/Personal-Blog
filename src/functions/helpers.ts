@@ -35,3 +35,21 @@ export async function read (collection: any, gamertag: string) {
         return resolve(player);
     });
 }
+
+export async function remove (collection: any, gamertag: string) {
+    
+    let player:any;
+    // Delete some documents
+    try {
+        player = await collection.deleteOne(
+            { "gamertag": gamertag.toLowerCase(), "username": gamertag }
+        );
+        
+    } catch (error) {
+        player = `Gamertag: ${gamertag} doesn't exist.`
+    }
+    
+    return new Promise<any>((resolve, reject) => {
+        return resolve(player);
+    });
+}
