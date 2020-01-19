@@ -1,3 +1,9 @@
+<style>
+    table {
+        width:100%;
+    }
+</style>
+
 # Node-TS-MongoDB
 Node TypeScript Base with MongoDB.
 
