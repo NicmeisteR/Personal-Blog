@@ -3,13 +3,13 @@ Node TypeScript Base with MongoDB.
 
 # To-Do
 
-| Task                                                  | Status
-| ----------------------------------------------------- |:-------------:|
-| Make an Express API that posts to MongoDB.            | [✅] |
-| Make an Express API that gets data from MongoDB.      | [✅] |
-| Make an Express API that deletes data from MongoDB.   | [✅] |
-| Make an Express API that updates data from MongoDB.   | [✅] |
-| Add GraphQL.                                          | [🚧] |
+| Task                                                  | Status  | Endpoints
+| ----------------------------------------------------- |:------: |:-------------:|
+| Make an Express API that posts to MongoDB.            | [✅]    | /post |
+| Make an Express API that gets data from MongoDB.      | [✅]    | /get |
+| Make an Express API that deletes data from MongoDB.   | [✅]    | /delete |
+| Make an Express API that updates data from MongoDB.   | [✅]    | /update |
+| Add GraphQL.                                          | [🚧]    | /query |
 
 # Notes
 
