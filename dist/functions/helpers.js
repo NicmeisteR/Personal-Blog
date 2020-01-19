@@ -40,15 +40,22 @@ var assert = require('assert');
 var node = require('node-essentials');
 function insert(collection, gamertag) {
     return __awaiter(this, void 0, void 0, function () {
-        var player;
+        var player, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, collection.insertOne({ "gamertag": gamertag })];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, collection.insertOne({ "gamertag": gamertag.toLowerCase(), "username": gamertag })];
                 case 1:
                     player = _a.sent();
-                    return [2 /*return*/, new Promise(function (resolve) {
-                            return resolve(player);
-                        })];
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    player = "Gamertag: " + gamertag + " Already Exists.";
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/, new Promise(function (resolve, reject) {
+                        return resolve(player);
+                    })];
             }
         });
     });
@@ -59,7 +66,7 @@ function read(collection, gamertag) {
         var player;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, collection.find({ "gamertag": gamertag }).limit(1).toArray()];
+                case 0: return [4 /*yield*/, collection.find({ "gamertag": gamertag }).toArray()];
                 case 1:
                     player = _a.sent();
                     // collection.find({}).toArray(function(error, documents) {
