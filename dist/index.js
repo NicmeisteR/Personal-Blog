@@ -119,6 +119,21 @@ function start() {
                     }
                 });
             }); });
+            app.put('/put', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+                var gamertag, player;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            response.writeHead(200, responseHead);
+                            gamertag = request.body.gamertag;
+                            return [4 /*yield*/, helpers_1.update(collection, gamertag, request.body.name)];
+                        case 1:
+                            player = _a.sent();
+                            response.end(JSON.stringify(player));
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
             app.listen(process.env.PORT, function () { return console.log("API now available on http://localhost:" + process.env.PORT); });
             return [2 /*return*/];
         });

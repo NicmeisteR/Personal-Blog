@@ -7,7 +7,11 @@ export async function insert(collection: any, gamertag: string) {
     // Insert some documents
     try {
         player = await collection.insertOne(
-            { "gamertag": gamertag.toLowerCase(), "username": gamertag }
+            { 
+                "gamertag": gamertag.toLowerCase(), 
+                "username": gamertag ,
+                "created": new Date(Date.now())
+            }
         );
         
     } catch (error) {
@@ -46,6 +50,33 @@ export async function remove (collection: any, gamertag: string) {
         );
         
     } catch (error) {
+        player = `Gamertag: ${gamertag} doesn't exist.`
+    }
+    
+    return new Promise<any>((resolve, reject) => {
+        return resolve(player);
+    });
+}
+
+export async function update (collection: any, gamertag: string, name: string) {
+    
+    let player:any;
+    // Update some documents
+    try {
+        player = await collection.updateOne(
+            { 
+                "gamertag": gamertag.toLowerCase() 
+            },
+            {
+                $set: {
+                    "name": name,
+                },
+                $currentDate: { lastModified: true }
+            }
+        );
+        
+    } catch (error) {
+        node.writeToFile("./", "error", "json", error)
         player = `Gamertag: ${gamertag} doesn't exist.`
     }
     

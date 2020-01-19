@@ -1,5 +1,5 @@
 import express = require('express');
-import { insert, read, remove } from './functions/helpers';
+import { insert, read, remove, update } from './functions/helpers';
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const bodyParser = require('body-parser');
@@ -63,6 +63,15 @@ async function start() {
     let gamertag = request.body.gamertag;
 
     let player = await remove(collection, gamertag);
+    response.end(JSON.stringify(player))
+  });
+
+  app.put('/put', async (request, response) => {
+    response.writeHead(200, responseHead);
+
+    let gamertag = request.body.gamertag;
+
+    let player = await update(collection, gamertag, request.body.name);
     response.end(JSON.stringify(player))
   });
 
