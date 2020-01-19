@@ -26,57 +26,56 @@ let collection: any;
 // ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║
 // ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝
 // Server                                             
-function start() {
-    client.connect((err: any) => { 
-      if(err){
-        console.log(err)
-      }; 
-      
-      db = client.db(dbName); 
-      // Get the documents collection
-      collection = db.collection('documents');
-    });
-    
+async function start() {
+  app.use(cors());
+  // Configuring body parser middleware
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
 
-    app.use(cors());
-    // Configuring body parser middleware
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
-  
-    app.post('/post', async (request, response) => {
-      response.writeHead(200, {
-        'Content-Type': 'text/json',
-        'Developer': 'Nicolaas Nel (NicmeisteR)',
-        'Support-Development': 'https://ko-fi.com/nicmeister',
-        'Twitter': 'https://twitter.com/FinalNecessity'
-      });
-  
-      let gamertag = request.body.gamertag;
-
-      let player = await insert(collection, gamertag);
-      response.end(JSON.stringify(player))
-    })
-
-    app.get('/get', async (request, response) => {
-      response.writeHead(200, {
-        'Content-Type': 'text/json',
-        'Developer': 'Nicolaas Nel (NicmeisteR)',
-        'Support-Development': 'https://ko-fi.com/nicmeister',
-        'Twitter': 'https://twitter.com/FinalNecessity'
-      });
-  
-      let gamertag = request.body.gamertag;
-
-      let player = await read(collection, gamertag);
-      response.end(JSON.stringify(player))
+  app.post('/post', async (request, response) => {
+    response.writeHead(200, {
+      'Content-Type': 'text/json',
+      'Developer': 'Nicolaas Nel (NicmeisteR)',
+      'Support-Development': 'https://ko-fi.com/nicmeister',
+      'Twitter': 'https://twitter.com/FinalNecessity'
     });
 
-    app.listen(process.env.PORT, () => console.log(`API now available on http://localhost:${process.env.PORT}`));
-  }
-  
-  // let app = express();
-  const app: express.Application = express();
+    let gamertag = request.body.gamertag;
+
+    let player = await insert(collection, gamertag);
+    response.end(JSON.stringify(player))
+  })
+
+  app.get('/get', async (request, response) => {
+    response.writeHead(200, {
+      'Content-Type': 'text/json',
+      'Developer': 'Nicolaas Nel (NicmeisteR)',
+      'Support-Development': 'https://ko-fi.com/nicmeister',
+      'Twitter': 'https://twitter.com/FinalNecessity'
+    });
+
+    let gamertag = request.body.gamertag;
+
+    let player = await read(collection, gamertag);
+    response.end(JSON.stringify(player))
+  });
+
+  app.listen(process.env.PORT, () => console.log(`API now available on http://localhost:${process.env.PORT}`));
+}
+
+// let app = express();
+const app: express.Application = express();
+
+client.connect((err: any) => {
+  if (err) {
+    console.log(err)
+  };
+
+  db = client.db(dbName);
+  // Get the documents collection
+  collection = db.collection('documents');
   start();
+});
 
 // ███████╗███╗   ██╗ ██████╗██████╗ ██╗   ██╗██████╗ ████████╗███████╗██████╗     ███████╗███████╗████████╗██╗   ██╗██████╗ 
 // ██╔════╝████╗  ██║██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗

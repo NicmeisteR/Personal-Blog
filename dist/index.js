@@ -60,65 +60,70 @@ var collection;
 // ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝
 // Server                                             
 function start() {
-    var _this = this;
-    client.connect(function (err) {
-        if (err) {
-            console.log(err);
-        }
-        ;
-        db = client.db(dbName);
-        // Get the documents collection
-        collection = db.collection('documents');
+    return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        return __generator(this, function (_a) {
+            app.use(cors());
+            // Configuring body parser middleware
+            app.use(bodyParser.urlencoded({ extended: false }));
+            app.use(bodyParser.json());
+            app.post('/post', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+                var gamertag, player;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            response.writeHead(200, {
+                                'Content-Type': 'text/json',
+                                'Developer': 'Nicolaas Nel (NicmeisteR)',
+                                'Support-Development': 'https://ko-fi.com/nicmeister',
+                                'Twitter': 'https://twitter.com/FinalNecessity'
+                            });
+                            gamertag = request.body.gamertag;
+                            return [4 /*yield*/, helpers_1.insert(collection, gamertag)];
+                        case 1:
+                            player = _a.sent();
+                            response.end(JSON.stringify(player));
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            app.get('/get', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+                var gamertag, player;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            response.writeHead(200, {
+                                'Content-Type': 'text/json',
+                                'Developer': 'Nicolaas Nel (NicmeisteR)',
+                                'Support-Development': 'https://ko-fi.com/nicmeister',
+                                'Twitter': 'https://twitter.com/FinalNecessity'
+                            });
+                            gamertag = request.body.gamertag;
+                            return [4 /*yield*/, helpers_1.read(collection, gamertag)];
+                        case 1:
+                            player = _a.sent();
+                            response.end(JSON.stringify(player));
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            app.listen(process.env.PORT, function () { return console.log("API now available on http://localhost:" + process.env.PORT); });
+            return [2 /*return*/];
+        });
     });
-    app.use(cors());
-    // Configuring body parser middleware
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
-    app.post('/post', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
-        var gamertag, player;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    response.writeHead(200, {
-                        'Content-Type': 'text/json',
-                        'Developer': 'Nicolaas Nel (NicmeisteR)',
-                        'Support-Development': 'https://ko-fi.com/nicmeister',
-                        'Twitter': 'https://twitter.com/FinalNecessity'
-                    });
-                    gamertag = request.body.gamertag;
-                    return [4 /*yield*/, helpers_1.insert(collection, gamertag)];
-                case 1:
-                    player = _a.sent();
-                    response.end(JSON.stringify(player));
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    app.get('/get', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
-        var gamertag, player;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    response.writeHead(200, {
-                        'Content-Type': 'text/json',
-                        'Developer': 'Nicolaas Nel (NicmeisteR)',
-                        'Support-Development': 'https://ko-fi.com/nicmeister',
-                        'Twitter': 'https://twitter.com/FinalNecessity'
-                    });
-                    gamertag = request.body.gamertag;
-                    return [4 /*yield*/, helpers_1.read(collection, gamertag)];
-                case 1:
-                    player = _a.sent();
-                    response.end(JSON.stringify(player));
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    app.listen(process.env.PORT, function () { return console.log("API now available on http://localhost:" + process.env.PORT); });
 }
 // let app = express();
 var app = express();
-start();
+client.connect(function (err) {
+    if (err) {
+        console.log(err);
+    }
+    ;
+    db = client.db(dbName);
+    // Get the documents collection
+    collection = db.collection('documents');
+    start();
+});
 // ███████╗███╗   ██╗ ██████╗██████╗ ██╗   ██╗██████╗ ████████╗███████╗██████╗     ███████╗███████╗████████╗██╗   ██╗██████╗ 
 // ██╔════╝████╗  ██║██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗
 // █████╗  ██╔██╗ ██║██║     ██████╔╝ ╚████╔╝ ██████╔╝   ██║   █████╗  ██║  ██║    ███████╗█████╗     ██║   ██║   ██║██████╔╝
