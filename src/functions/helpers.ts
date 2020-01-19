@@ -22,7 +22,7 @@ export async function insert(collection: any, gamertag: string) {
 export async function read (collection: any, gamertag: string) {
     // Insert some documents
     let player = await collection.find(
-        { "gamertag": gamertag }
+        { "gamertag": gamertag.toLowerCase() }
     ).toArray();
 
     // collection.find({}).toArray(function(error, documents) {

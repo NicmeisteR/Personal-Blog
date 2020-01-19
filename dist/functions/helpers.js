@@ -66,7 +66,7 @@ function read(collection, gamertag) {
         var player;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, collection.find({ "gamertag": gamertag }).toArray()];
+                case 0: return [4 /*yield*/, collection.find({ "gamertag": gamertag.toLowerCase() }).toArray()];
                 case 1:
                     player = _a.sent();
                     // collection.find({}).toArray(function(error, documents) {
