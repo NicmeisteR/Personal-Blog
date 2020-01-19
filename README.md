@@ -1,9 +1,15 @@
+<style>
+    table {
+        width:100% !important;
+    }
+</style>
+
 # Node-TS-MongoDB
 Node TypeScript Base with MongoDB.
 
 # To-Do
 
-|  <div style="width:450px">Task</div>        | Status
+| Task        | Status
 | ------------- |:-------------:|
 | Make an Express API that posts to MongoDB. | [✅] |
 | Make an Express API that gets data from MongoDB. | [✅] |
