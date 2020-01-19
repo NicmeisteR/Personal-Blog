@@ -1,22 +1,22 @@
 import express = require('express');
-import { insert } from './functions/helpers';
+import { insert, read } from './functions/helpers';
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config({ path: require('find-config')('.env') });
 
-// Connection URL
-const url = process.env.URL;
-
 // Database Name
 const dbName = process.env.DBNAME;
 
+// Connection URL
+const url = process.env.URL;
+
 // Create a new MongoClient
-const client = new MongoClient(url);
+const client = new MongoClient(url, { useUnifiedTopology: true });
 
 let db: any;
-
+let collection: any;
 // Use connect method to connect to the Server
 
 // ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ 
@@ -27,7 +27,15 @@ let db: any;
 // ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝
 // Server                                             
 function start() {
-    client.connect((err: any) => { if(err) console.log(err); db = client.db(dbName)});
+    client.connect((err: any) => { 
+      if(err){
+        console.log(err)
+      }; 
+      
+      db = client.db(dbName); 
+      // Get the documents collection
+      collection = db.collection('documents');
+    });
     
 
     app.use(cors());
@@ -45,15 +53,8 @@ function start() {
   
       let gamertag = request.body.gamertag;
 
-      insert(db, gamertag, response, function () {
-        // client.close();
-        try {
-            response.end(JSON.stringify(gamertag + " Added"))
-          }
-        catch (error) {
-            console.log(error);
-        }
-    });
+      let player = await insert(collection, gamertag);
+      response.end(JSON.stringify(player))
     })
 
     app.get('/get', async (request, response) => {
@@ -66,16 +67,10 @@ function start() {
   
       let gamertag = request.body.gamertag;
 
-      insert(db, gamertag, response, function () {
-        // client.close();
-        try {
-            response.end(JSON.stringify(gamertag + " retrieved"))
-          }
-        catch (error) {
-            console.log(error);
-        }
+      let player = await read(collection, gamertag);
+      response.end(JSON.stringify(player))
     });
-    })
+
     app.listen(process.env.PORT, () => console.log(`API now available on http://localhost:${process.env.PORT}`));
   }
   

@@ -43,13 +43,14 @@ var assert = require('assert');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 require('dotenv').config({ path: require('find-config')('.env') });
-// Connection URL
-var url = process.env.URL;
 // Database Name
 var dbName = process.env.DBNAME;
+// Connection URL
+var url = process.env.URL;
 // Create a new MongoClient
-var client = new MongoClient(url);
+var client = new MongoClient(url, { useUnifiedTopology: true });
 var db;
+var collection;
 // Use connect method to connect to the Server
 // ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ 
 // ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗
@@ -60,54 +61,57 @@ var db;
 // Server                                             
 function start() {
     var _this = this;
-    client.connect(function (err) { if (err)
-        console.log(err); db = client.db(dbName); });
+    client.connect(function (err) {
+        if (err) {
+            console.log(err);
+        }
+        ;
+        db = client.db(dbName);
+        // Get the documents collection
+        collection = db.collection('documents');
+    });
     app.use(cors());
     // Configuring body parser middleware
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.post('/post', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
-        var gamertag;
+        var gamertag, player;
         return __generator(this, function (_a) {
-            response.writeHead(200, {
-                'Content-Type': 'text/json',
-                'Developer': 'Nicolaas Nel (NicmeisteR)',
-                'Support-Development': 'https://ko-fi.com/nicmeister',
-                'Twitter': 'https://twitter.com/FinalNecessity'
-            });
-            gamertag = request.body.gamertag;
-            helpers_1.insert(db, gamertag, response, function () {
-                // client.close();
-                try {
-                    response.end(JSON.stringify(gamertag + " Added"));
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            });
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    response.writeHead(200, {
+                        'Content-Type': 'text/json',
+                        'Developer': 'Nicolaas Nel (NicmeisteR)',
+                        'Support-Development': 'https://ko-fi.com/nicmeister',
+                        'Twitter': 'https://twitter.com/FinalNecessity'
+                    });
+                    gamertag = request.body.gamertag;
+                    return [4 /*yield*/, helpers_1.insert(collection, gamertag)];
+                case 1:
+                    player = _a.sent();
+                    response.end(JSON.stringify(player));
+                    return [2 /*return*/];
+            }
         });
     }); });
     app.get('/get', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
-        var gamertag;
+        var gamertag, player;
         return __generator(this, function (_a) {
-            response.writeHead(200, {
-                'Content-Type': 'text/json',
-                'Developer': 'Nicolaas Nel (NicmeisteR)',
-                'Support-Development': 'https://ko-fi.com/nicmeister',
-                'Twitter': 'https://twitter.com/FinalNecessity'
-            });
-            gamertag = request.body.gamertag;
-            helpers_1.insert(db, gamertag, response, function () {
-                // client.close();
-                try {
-                    response.end(JSON.stringify(gamertag + " retrieved"));
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            });
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    response.writeHead(200, {
+                        'Content-Type': 'text/json',
+                        'Developer': 'Nicolaas Nel (NicmeisteR)',
+                        'Support-Development': 'https://ko-fi.com/nicmeister',
+                        'Twitter': 'https://twitter.com/FinalNecessity'
+                    });
+                    gamertag = request.body.gamertag;
+                    return [4 /*yield*/, helpers_1.read(collection, gamertag)];
+                case 1:
+                    player = _a.sent();
+                    response.end(JSON.stringify(player));
+                    return [2 /*return*/];
+            }
         });
     }); });
     app.listen(process.env.PORT, function () { return console.log("API now available on http://localhost:" + process.env.PORT); });

@@ -1,28 +1,30 @@
 const assert = require('assert');
+const node = require('node-essentials');
 
-export const insert = (db: any, gamertag: string, response: any, callback: any) => {
-    // Get the documents collection
-    const collection = db.collection('documents');
+export async function insert(collection: any, gamertag: string) {
+    
     // Insert some documents
-    collection.insertMany([
-        { a: 1, gamertag: gamertag }, { a: 2, gamertag: gamertag }, { a: 3, gamertag: gamertag }
-    ], function (err: any, result: any) {
-        assert.equal(err, null);
-        assert.equal(3, result.result.n);
-        assert.equal(3, result.ops.length);
-        console.log("Inserted 3 documents into the collection");
-        callback(result);
+    let player = await collection.insertOne(
+        { "gamertag": gamertag }
+    );
+    return new Promise<any>(resolve => {
+        return resolve(player);
     });
 }
 
-export const read = (db: any, gamertag: string, response: any, callback: any) => {
-    // Get the documents collection
-    const collection = db.collection('documents');
+export async function read (collection: any, gamertag: string) {
     // Insert some documents
-    collection.find([
-        { a: 1, gamertag: gamertag }
-    ], function (err: any, result: any) {
-        console.log("Found 3 documents into the collection");
-        callback(result);
+    let player = await collection.find(
+        { "gamertag": gamertag }
+    ).limit(1).toArray();
+
+    // collection.find({}).toArray(function(error, documents) {
+    //     if (err) throw error;
+    
+    //     res.send(documents);
+    // });
+    // node.writeToFile("./", "test", "json", player)
+    return new Promise<any>(resolve => {
+        return resolve(player);
     });
 }
