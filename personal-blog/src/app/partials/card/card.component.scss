@@ -1,0 +1,55 @@
+p {
+    margin: 0;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.card{
+    height: 283px;
+    width: 278px;
+    background-color: #D4D4D4;
+    border-radius: 24px;
+
+    .card-header {
+        text-align: center;
+
+        .type {
+            height: 18px;
+            width: 278px;
+            background-color: #666666;
+            border-radius: 24px 24px 0px 0px;
+
+            p {
+                color: #ffffff;
+            }
+        }
+        .headline {
+            height: 52px;
+            width: 278px;
+            background-color: #C4C4C4;
+            
+            p {
+                line-height: 3.5;
+            }
+        }
+    }
+
+    .card-body {
+        height: 213px;
+
+        .front {
+            height: 100%;
+            border-radius: 0px 0px 24px 24px;
+            background-position: center;
+        }
+
+        .front:after {
+            background: linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(0, 0, 0, 0.65) 100%); /* W3C */
+        }
+
+        .back {
+            height: 100%;
+            display: none;
+        }
+    }
+}

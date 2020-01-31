@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header">
+        <div class="type">
+            <p>
+                {{ card.type }}
+            </p>
+        </div>
+        <div class="headline">
+            <p>
+                {{ card.headline }}
+            </p>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="front" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
+        <div class="back">
+            {{ card.description }}
+        </div>
+    </div>
+</div>

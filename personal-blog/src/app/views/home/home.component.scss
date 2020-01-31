@@ -1,0 +1,44 @@
+.card-container {
+    display: flex; /* or inline-flex */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.searchbar {
+    margin: 0 auto;
+    margin-bottom: 39px;
+    width: 1247px;
+    height: 69px;
+    background: #C4C4C4;
+    border-radius: 24px;
+
+    input {
+        background-color: transparent;
+        border: none;
+        height: 38px;
+        font-size: 36px;
+        color: #000000;
+        font-weight: 700;
+        width: 1000px;
+        margin-top: 14px;
+        margin-left: 58px;
+    }
+
+    input:focus, input:focus-within, input:active {
+        outline: none;
+    }
+
+
+    i {
+        font-size: 46px;
+        margin-top: 12px;
+        margin-left: 14px;
+        color: #00000054;
+        font-weight: bold;
+    }
+
+    form {
+        display: inline-flex;
+    }
+}
