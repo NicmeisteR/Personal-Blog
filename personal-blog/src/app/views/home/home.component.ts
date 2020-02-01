@@ -19,19 +19,19 @@ export class HomeComponent implements OnInit {
     {
       type: "TUTORIAL",
       headline: "BUILD WEBSITE",
-      description: "Description",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum repudiandae iusto omnis odio aliquam rerum? Nihil, dolorem? Tempore distinctio nobis recusandae minus ducimus corrupti delectus fugit enim voluptates facilis. Voluptates?",
       image: "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/21_Angular_logo_logos-512.png"
     },
     {
       type: "VIDEO",
       headline: "NEW YOUTUBE VIDEO",
-      description: "Description",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum repudiandae iusto omnis odio aliquam rerum? Nihil, dolorem? Tempore distinctio nobis recusandae minus ducimus corrupti delectus fugit enim voluptates facilis. Voluptates?",
       image: "https://lh3.googleusercontent.com/z6Sl4j9zQ88oUKNy0G3PAMiVwy8DzQLh_ygyvBXv0zVNUZ_wQPN_n7EAR2By3dhoUpX7kTpaHjRPni1MHwKpaBJbpNqdEsHZsH4q"
     },
     {
       type: "ANNOUNCEMENT",
       headline: "HALO TOURNAMENT",
-      description: "Description",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum repudiandae iusto omnis odio aliquam rerum? Nihil, dolorem? Tempore distinctio nobis recusandae minus ducimus corrupti delectus fugit enim voluptates facilis. Voluptates?",
       image: "https://content.halocdn.com/media/Default/Halo.gg/542x305_Module_Images/hcs-5ya-bde5e39fc4b141b1a423213bbefabe7f.png"
     },
     {
@@ -43,19 +43,19 @@ export class HomeComponent implements OnInit {
     {
       type: "TUTORIAL",
       headline: "BUILD WEBSITE",
-      description: "Description",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum repudiandae iusto omnis odio aliquam rerum? Nihil, dolorem? Tempore distinctio nobis recusandae minus ducimus corrupti delectus fugit enim voluptates facilis. Voluptates?",
       image: "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/21_Angular_logo_logos-512.png"
     },
     {
       type: "VIDEO",
       headline: "NEW YOUTUBE VIDEO",
-      description: "Description",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum repudiandae iusto omnis odio aliquam rerum? Nihil, dolorem? Tempore distinctio nobis recusandae minus ducimus corrupti delectus fugit enim voluptates facilis. Voluptates?",
       image: "https://lh3.googleusercontent.com/z6Sl4j9zQ88oUKNy0G3PAMiVwy8DzQLh_ygyvBXv0zVNUZ_wQPN_n7EAR2By3dhoUpX7kTpaHjRPni1MHwKpaBJbpNqdEsHZsH4q"
     },
     {
       type: "ANNOUNCEMENT",
       headline: "HALO TOURNAMENT",
-      description: "Description",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum repudiandae iusto omnis odio aliquam rerum? Nihil, dolorem? Tempore distinctio nobis recusandae minus ducimus corrupti delectus fugit enim voluptates facilis. Voluptates?",
       image: "https://content.halocdn.com/media/Default/Halo.gg/542x305_Module_Images/hcs-5ya-bde5e39fc4b141b1a423213bbefabe7f.png"
     }
   ]

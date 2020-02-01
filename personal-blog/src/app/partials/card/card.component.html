@@ -14,7 +14,9 @@
     <div class="card-body">
         <div class="front" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
         <div class="back">
-            {{ card.description }}
+            <p>
+                {{ card.description }}
+            </p>
         </div>
     </div>
 </div>
