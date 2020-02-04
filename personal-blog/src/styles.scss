@@ -15,3 +15,54 @@ body {
     // padding: 80px;
     // background-color: green;
 }
+
+@media (max-width: 375px) { 
+    .container {
+        // max-width: 1140px;
+        width: 375px;
+        margin: 0 auto;
+        // padding: 80px;
+        // background-color: green;
+    }
+
+    .featured {
+        width: 375px !important;
+    }
+
+    .searchbar {
+        width: 375px !important;
+    }
+}
+
+@media (max-width: 575.98px) { 
+    .container {
+        // max-width: 1140px;
+        width: 375px;
+        margin: 0 auto;
+        // padding: 80px;
+        // background-color: green;
+    }
+
+    .featured {
+        width: 375px !important;
+    }
+
+    .searchbar {
+        width: 375px!important;
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) { 
+
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) { 
+
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) { 
+
+}
