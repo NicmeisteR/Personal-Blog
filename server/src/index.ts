@@ -1,5 +1,5 @@
 import express = require('express');
-import { insert, read, remove, update } from './functions/helpers';
+import { insert, read, remove, update, updateViews } from './functions/helpers';
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const bodyParser = require('body-parser');
@@ -16,6 +16,7 @@ const url = process.env.URL;
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
 let db: any;
+let blogCollection: any;
 let collection: any;
 // Use connect method to connect to the Server
 
@@ -46,7 +47,24 @@ async function start() {
 
     let player = await insert(collection, gamertag);
     response.end(JSON.stringify(player))
-  })
+  });
+
+  app.post('/views', async (request, response) => {
+    response.writeHead(200, responseHead);
+
+    let article = request.body.article;
+    let views;
+
+    if(article === "blog"){
+      views = await updateViews(blogCollection, article);
+    }
+    else{
+      views = await updateViews(collection, article);
+    }
+
+
+    response.end(JSON.stringify(views))
+  });
 
   app.get('/get', async (request, response) => {
     response.writeHead(200, responseHead);
@@ -88,7 +106,8 @@ client.connect((err: any) => {
 
   db = client.db(dbName);
   // Get the documents collection
-  collection = db.collection('documents');
+  blogCollection = db.collection('site');
+  collection = db.collection('articles');
   start();
 });
 

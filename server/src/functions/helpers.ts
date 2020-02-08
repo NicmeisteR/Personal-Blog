@@ -23,10 +23,32 @@ export async function insert(collection: any, gamertag: string) {
     });
 }
 
-export async function read (collection: any, gamertag: string) {
+// export async function insertViews(collection: any, article: number) {
+
+//     let articleDetails:any;
+//     // Insert some documents
+//     try {
+//         article = await collection.insertOne(
+//             { 
+//                 "article": article.name.toLowerCase(), 
+//                 "views": article.views ,
+//                 "created": new Date(Date.now())
+//             }
+//         );
+        
+//     } catch (error) {
+//         article = error;
+//     }
+    
+//     return new Promise<any>((resolve, reject) => {
+//         return resolve(articleDetails);
+//     });
+// }
+
+export async function read (collection: any, parameter: any) {
     // Insert some documents
-    let player = await collection.find(
-        { "gamertag": gamertag.toLowerCase() }
+    let object = await collection.find(
+        { "_id": parameter.toLowerCase() }
     ).toArray();
 
     // collection.find({}).toArray(function(error, documents) {
@@ -36,7 +58,7 @@ export async function read (collection: any, gamertag: string) {
     // });
     // node.writeToFile("./", "test", "json", player)
     return new Promise<any>(resolve => {
-        return resolve(player);
+        return resolve(object);
     });
 }
 
@@ -82,5 +104,39 @@ export async function update (collection: any, gamertag: string, name: string) {
     
     return new Promise<any>((resolve, reject) => {
         return resolve(player);
+    });
+}
+
+export async function updateViews (collection: any, article: any) {
+
+    let articleViews = await read(collection, article);
+    
+    let articleDetails:any;
+    // Update some documents
+    try {
+        articleDetails = await collection.updateOne(
+            { 
+                "_id": article.toLowerCase() 
+            },
+            {
+                $set: {
+                    "views": articleViews[0].views + 1,
+                },
+                $currentDate: { lastModified: true }
+            }
+        );
+        
+    } catch (error) {
+        node.writeToFile("./", "error", "json", error)
+        articleDetails = `Article: ${article.name} doesn't exist.`
+    }
+
+    let response = {
+        views: articleViews[0].views + 1,
+        details: articleDetails
+    }
+    
+    return new Promise<any>((resolve, reject) => {
+        return resolve(response);
     });
 }
